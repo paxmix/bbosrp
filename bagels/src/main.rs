@@ -37,10 +37,9 @@ When I say:         That means:
                 io::stdin()
                     .read_line(&mut guess)
                     .expect("Failed to read line");
-                let guess_to_i32 = guess.trim().parse::<i32>();
 
                 // validate input: 3 length and is decimal
-                if guess.trim().len() == 3 && guess_to_i32.is_ok() {
+                if guess.trim().len() == 3 && guess.trim().parse::<i32>().is_ok() {
                     break;
                 }
             }
