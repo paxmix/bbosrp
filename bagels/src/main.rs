@@ -26,24 +26,26 @@ When I say:         That means:
 
         let mut guess_no = 1;
         while guess_no <= MAX_GUESSES {
-            let mut guess = String::new();
-            loop {
-                guess.clear();
+            let guess = loop {
                 println!("Guess #{}", &guess_no);
                 print!("> ");
                 // flush to force the buffer to display "> " immediately
                 io::stdout().flush().unwrap();
 
+                let mut input = String::new();
+
                 io::stdin()
-                    .read_line(&mut guess)
+                    .read_line(&mut input)
                     .expect("Failed to read line");
 
                 // validate input: 3 length and is decimal
-                if guess.trim().len() == 3 && guess.trim().parse::<i32>().is_ok() {
-                    break;
+                if let Ok(guess_u32) = input.trim().parse::<u32>()
+                    && input.trim().len() == 3
+                {
+                    break guess_u32.to_string();
                 }
-            }
-            let guess = guess.trim();
+                println!("Invalid Input!\n");
+            };
             // Right guess, end game
             if guess == rand_num {
                 println!("You got it!");
@@ -55,7 +57,7 @@ When I say:         That means:
                 println!("The correct number is {}", rand_num);
                 break;
             }
-            givehint(guess, &rand_num);
+            givehint(&guess, &rand_num);
             println!();
             guess_no += 1;
         }
@@ -95,9 +97,8 @@ fn givehint(guess: &str, rand_num: &str) {
 }
 
 fn get_num() -> String {
-    let mut rng = rand::rng();
     let mut nums: Vec<i8> = (0..9).collect();
-    nums.shuffle(&mut rng);
+    nums.shuffle(&mut rand::rng());
 
     nums[0..3].iter().map(|n| n.to_string()).collect()
 }
