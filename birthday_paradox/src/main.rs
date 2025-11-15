@@ -36,7 +36,6 @@ simulations) to explore this concept.
         {
             break n;
         }
-        input.clear();
         println!("Invalid input!");
     };
 
