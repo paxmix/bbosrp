@@ -65,7 +65,8 @@ When I say:         That means:
         io::stdin()
             .read_line(&mut replay)
             .expect("Failed to read line");
-        // Looping the game (Restart) if player enter anything word beginning with the letter "y"
+        // Looping the game (Restart) if player enter anything word beginning
+        // with the letter "y"
         if !replay.trim().starts_with("y") {
             break;
         }
