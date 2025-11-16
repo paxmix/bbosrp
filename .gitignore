@@ -4,3 +4,5 @@ birthday_paradox/target
 birthday_paradox/Cargo.lock
 bitmap_message/target
 bitmap_message/Cargo.lock
+blackjack/target
+blackjack/Cargo.lock
